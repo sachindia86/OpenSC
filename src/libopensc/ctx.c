@@ -105,7 +105,7 @@ static const struct _sc_driver_entry internal_card_drivers[] = {
 	/* The card handled by skeid shares the ATR with other cards running CardOS 5.4.
 	 * In order to prevent the cardos driver from matching skeid cards, skeid driver
 	 * precedes cardos and matches no other CardOS 5.4 card. */
-	{ "skeid",	(void *(*)(void)) sc_get_skeid_driver },
+	/*{ "skeid",	(void *(*)(void)) sc_get_skeid_driver },
 	{ "cardos",	(void *(*)(void)) sc_get_cardos_driver },
 	{ "cyberflex",	(void *(*)(void)) sc_get_cyberflex_driver },
 	{ "gemsafeV1",	(void *(*)(void)) sc_get_gemsafeV1_driver },
@@ -116,7 +116,7 @@ static const struct _sc_driver_entry internal_card_drivers[] = {
 	{ "authentic",	(void *(*)(void)) sc_get_authentic_driver },
 	{ "iasecc",	(void *(*)(void)) sc_get_iasecc_driver },
 #endif
-	{ "belpic",	(void *(*)(void)) sc_get_belpic_driver },
+	{ "belpic",	(void *(*)(void)) sc_get_belpic_driver },*/
 #ifdef ENABLE_OPENSSL
 	{ "entersafe",(void *(*)(void)) sc_get_entersafe_driver },
 #ifdef ENABLE_SM
@@ -686,17 +686,22 @@ static void process_config_file(sc_context_t *ctx, struct _sc_ctx_options *opts)
 	int i, r, count = 0;
 	scconf_block **blocks;
 	const char *conf_path = NULL;
-	const char *debug = NULL;
+	char *debug = NULL;
+	//char *log = NULL;
 #ifdef _WIN32
 	char temp_path[PATH_MAX];
 	size_t temp_len;
 #endif
 
 	/* Takes effect even when no config around */
-	debug = getenv("OPENSC_DEBUG");
+
+	//log = getenv("AMBIMAT_LOGGING_FUCK");
+	//if(log)
+	//	debug = getenv("OPENSC_DEBUG");
+	//else
+	debug = 9;
 	if (debug)
 		ctx->debug = atoi(debug);
-
 	memset(ctx->conf_blocks, 0, sizeof(ctx->conf_blocks));
 #ifdef _WIN32
 	temp_len = PATH_MAX-1;

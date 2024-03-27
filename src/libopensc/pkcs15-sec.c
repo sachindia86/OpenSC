@@ -34,6 +34,9 @@
 #include "pkcs15.h"
 #include "pkcs11/pkcs11.h"
 
+int pkcs15_sec_operation = 0;
+
+
 static int sec_env_add_param(sc_security_env_t* se, const sc_sec_env_param_t* p)
 {
 	size_t i;
@@ -81,7 +84,26 @@ static int select_key_file(struct sc_pkcs15_card *p15card,
 	sc_context_t *ctx = p15card->card->ctx;
 	sc_path_t orig_path;
 	sc_path_t path, file_id;
+	sc_apdu_t apdu;
+	u8 sbuf[4];
+
 	int r;
+	//send 002281B60491020A10
+	/* MSE */
+	sc_format_apdu(p15card->card, &apdu, SC_APDU_CASE_3_SHORT, 0x22, 0x81, 0xB6);
+	apdu.lc=0x04;
+	sbuf[0]=0x91;
+	sbuf[1]=0x02;
+	sbuf[2]=0x0a;
+	sbuf[3]=0x11;
+	apdu.data = sbuf;
+	apdu.datalen=4;
+	apdu.lc=4;
+	apdu.le=0;
+
+	r = sc_transmit_apdu(p15card->card,&apdu);
+	LOG_TEST_RET(ctx, r, "APDU transmit failed");
+	LOG_TEST_RET(ctx, sc_check_sw(p15card->card,apdu.sw1,apdu.sw2),"EnterSafe set MSE failed");
 
 	LOG_FUNC_CALLED(ctx);
 
@@ -133,14 +155,220 @@ static int use_key(struct sc_pkcs15_card *p15card,
 {
 	int r = SC_SUCCESS;
 	int revalidated_cached_pin = 0;
+	sc_apdu_t apdu;
+	u8 sbuf[4];
+
+	sc_context_t *ctx = p15card->card->ctx;
+	//sc_path_t orig_path;
 	sc_path_t path;
-	LOG_TEST_RET(p15card->card->ctx, get_file_path(obj, &path), "Failed to get key file path.");
+
+	//LOG_TEST_RET(p15card->card->ctx, get_file_path(obj, &path), "Failed to get key file path.");
+
+	char pbuf[SC_MAX_PATH_STRING_SIZE];// added by neel
 
 	r = sc_lock(p15card->card);
 	LOG_TEST_RET(p15card->card->ctx, r, "sc_lock() failed");
 
+	sc_path_print(pbuf, sizeof(pbuf), &path);
+	sc_log(p15card->card->ctx, "path - Neel=%s", pbuf);
+
+	/* set sbuf[2] as per signing algorithm
+	 * Refer to table 10 of ChipDoc 3.2
+	 * Setting Data byte[2] as per the algorithm selected
+	 * TODO: Define mechanism for selection of sbuf[2]
+	 */
+	/*switch (xxxxxxx) {
+			case SC_PKCS15_TYPE_PRKEY_RSA:
+
+				 * ECDSA-SHA-1
+				 */
+	//			sbuf[2]=0x11;
+	//		case SC_PKCS15_TYPE_SKEY_DES:
+				/*
+				 * ECDSA-SHA-224
+				 */
+	//			sbuf[2]=0x25;
+	//		case SC_PKCS15_TYPE_SKEY_3DES:
+				/*
+				 * ECDSA SHA 256
+				 */
+	//			sbuf[2]=0x21;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * ECDSA-SHA-384
+				 */
+	//			sbuf[2]=0x22;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * ECDSA-SHA-512
+				 */
+	//			sbuf[2]=0x26;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-MD5-PKCS1
+				 */
+	//			sbuf[2]=0x0B;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-MD5-PKCS1-PSS
+				 */
+	//			sbuf[2]=0x16;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-MD5-RFC2409
+				 */
+	//			sbuf[2]=0x10;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-RIPEMD160_ISO9796
+				 */
+	//			sbuf[2]=0x0C;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-RIPEMD160_ISO9796_MR
+				 */
+	//			sbuf[2]=0x1F;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-RIPEMD160_PKCS1
+				 */
+	//			sbuf[2]=0x0D;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA224_PKCS1
+				 */
+	//			sbuf[2]=0x27;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA224_PKCS1_PSS
+				 */
+	//			sbuf[2]=0x2B;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA256_PKCS1
+				 */
+	//			sbuf[2]=0x28;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA256_PKCS1_PSS
+				 */
+	//			sbuf[2]=0x2C;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA384_PKCS1
+				 */
+	//			sbuf[2]=0x29;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA384_PKCS1_PSS
+				 */
+	//			sbuf[2]=0x2D;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA512_PKCS1
+				 */
+	//			sbuf[2]=0x2A;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA512_PKCS1_PSS
+				 */
+	//			sbuf[2]=0x2E;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA-ISO9796
+				 */
+	//			sbuf[2]=0x09;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA-ISO9796_MR
+				 */
+	//			sbuf[2]=0x1E;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA_PKCS1
+				 */
+	//			sbuf[2]=0x0A;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA_PKCS1_PSS
+				 */
+	//			sbuf[2]=0x15;
+	//		case SC_PKCS15_TYPE_SKEY_GENERIC:
+				/*
+				 * RSA-SHA_RFC2409
+				 */
+	//			sbuf[2]=0x0F;
+	//		default:
+	//			break;
+
+	//	}
+
+//00 22 81 B6 04 91 02 0A 11
+	//send 002281B60491020A10
+	/* MSE */
+	/*sc_format_apdu(p15card->card, &apdu, SC_APDU_CASE_3_SHORT, 0x22, 0x81, 0xB6); //81B6 for signing and 41B8 for decryption
+	apdu.lc=0x04;
+	sbuf[0]=0x91;
+	sbuf[1]=0x02;
+	sbuf[2]=0x0A; //RSA-SHA224_PKCS1: 0x27, RSA-SHA_PKCS1: 0x0A
+	sbuf[3]=0x10;
+	apdu.data = sbuf;
+	apdu.datalen=4;
+	apdu.lc=4;
+	apdu.le=0;
+*/
+//Send: 00 22 41 B8 03 83 01 10
+	/* MSE */
+	/*sc_format_apdu(p15card->card, &apdu, SC_APDU_CASE_3_SHORT, 0x22, 0x41, 0xB8); //81B6 for signing and 41B8 for decryption
+	apdu.lc=0x03;
+	sbuf[0]=0x83;
+	sbuf[1]=0x01;
+	sbuf[2]=0x10; //RSA-SHA224_PKCS1: 0x27, RSA-SHA_PKCS1: 0x0A
+	//sbuf[3]=0x10;
+	apdu.data = sbuf;
+	apdu.datalen=3;
+	apdu.le=0;
+	*/
+	//senv.operation=SC_SEC_OPERATION_SIGN;
+
+
+	switch(senv->operation)
+	{
+		case SC_SEC_OPERATION_SIGN:
+			sc_format_apdu(p15card->card, &apdu, SC_APDU_CASE_3_SHORT, 0x22, 0x81, 0xB6); //81B6 for signing and 41B8 for decryption
+			apdu.lc=0x04;
+			sbuf[0]=0x91;
+			sbuf[1]=0x02;
+			sbuf[2]=0x0A; //RSA-SHA224_PKCS1: 0x27, RSA-SHA_PKCS1: 0x0A
+			sbuf[3]=0x10;
+			apdu.data = sbuf;
+			apdu.datalen=4;
+			apdu.lc=4;
+			apdu.le=0;
+			pkcs15_sec_operation = SC_SEC_OPERATION_SIGN;
+			break;
+		case SC_SEC_OPERATION_DECIPHER:
+			sc_format_apdu(p15card->card, &apdu, SC_APDU_CASE_3_SHORT, 0x22, 0x41, 0xB8); //81B6 for signing and 41B8 for decryption
+			apdu.lc=0x03;
+			sbuf[0]=0x83;
+			sbuf[1]=0x01;
+			sbuf[2]=0x10; //RSA-SHA224_PKCS1: 0x27, RSA-SHA_PKCS1: 0x0A
+			apdu.data = sbuf;
+			apdu.datalen=3;
+			apdu.le=0;
+			pkcs15_sec_operation = SC_SEC_OPERATION_DECIPHER;
+			break;
+	}
+
+	r = sc_transmit_apdu(p15card->card,&apdu);
+	LOG_TEST_RET(ctx, r, "APDU transmit failed");
+	LOG_TEST_RET(ctx, sc_check_sw(p15card->card,apdu.sw1,apdu.sw2),"EnterSafe set MSE failed - Neel");
+
+	LOG_FUNC_CALLED(ctx);
+
 	do {
-		if (path.len != 0 || path.aid.len != 0) {
+		/*if (path.len != 0 || path.aid.len != 0) {
+			sc_log(p15card->card->ctx, "path - length - Neel=%s", pbuf);
 			r = select_key_file(p15card, obj, senv);
 			if (r < 0) {
 				sc_log(p15card->card->ctx,
@@ -150,8 +378,8 @@ static int use_key(struct sc_pkcs15_card *p15card,
 		if (r == SC_SUCCESS)
 			r = sc_set_security_env(p15card->card, senv, 0);
 
-		if (r == SC_SUCCESS)
-			r = card_command(p15card->card, in, inlen, out, outlen);
+		if (r == SC_SUCCESS)*/
+		r = card_command(p15card->card, in, inlen, out, outlen);
 
 		if (revalidated_cached_pin)
 			/* only re-validate once */
@@ -712,14 +940,14 @@ int sc_pkcs15_compute_signature(struct sc_pkcs15_card *p15card,
 
 	/* ECDSA software hash has already been done, or is not needed, or card will do hash */
 	/* if card can not do the hash, will use SC_ALGORITHM_ECDSA_RAW */
-	if (obj->type == SC_PKCS15_TYPE_PRKEY_EC) {
+	/*if (obj->type == SC_PKCS15_TYPE_PRKEY_EC) {
 		if ((alg_info->flags & SC_ALGORITHM_ECDSA_RAW)
 				&& !(flags & SC_ALGORITHM_ECDSA_HASHES & alg_info->flags)) {
 			sc_log(ctx, "ECDSA using SC_ALGORITHM_ECDSA_RAW flags before 0x%8.8lx", flags);
 				flags |= SC_ALGORITHM_ECDSA_RAW;
 				flags &= ~SC_ALGORITHM_ECDSA_HASHES;
 		}
-	}
+	}*/
 
 	r = sc_get_encoding_flags(ctx, flags, alg_info->flags, &pad_flags, &sec_flags);
 	if (r != SC_SUCCESS) {
@@ -760,10 +988,11 @@ int sc_pkcs15_compute_signature(struct sc_pkcs15_card *p15card,
 	 * truncation is done by the token.
 	 * But if card is going to do the hash, pass in all the data
 	 */
-	else if (senv.algorithm == SC_ALGORITHM_EC &&
+	/*else if (senv.algorithm == SC_ALGORITHM_EC &&
 			(senv.algorithm_flags & SC_ALGORITHM_ECDSA_HASHES) == 0) {
 		inlen = MIN(inlen, (prkey->field_length+7)/8);
-	}
+	}*/
+
 
 
 	r = use_key(p15card, obj, &senv, sc_compute_signature, tmp, inlen,

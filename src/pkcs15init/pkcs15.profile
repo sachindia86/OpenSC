@@ -132,8 +132,8 @@ filesystem {
 	# Here comes the application DF
 	DF PKCS15-AppDF {
 	    type	= DF;
-	    file-id	= 5015;
-	    aid		= A0:00:00:00:63:50:4B:43:53:2D:31:35;
+	    file-id	= 2ADF;
+	    aid		= e8:28:00:bd:08:0f:a0:00:00:03:63:64:79:6e:69:64;
 	    acl		= *=NONE;
 	    size	= 5000;
 
@@ -148,38 +148,38 @@ filesystem {
 		ACL		= $unprotected;
 	    }
 
-	    EF PKCS15-UnusedSpace {
-		file-id		= 5033;
-		size		= $unusedspace-size;
-		ACL		= $unprotected;
-	    }
+	    #EF PKCS15-UnusedSpace {
+		#file-id		= 5033;
+		#size		= $unusedspace-size;
+		#ACL		= $unprotected;
+	    #}
 
 	    EF PKCS15-AODF {
-	        file-id		= 4401;
+	    file-id		= 4108;
 		size		= $aodf-size;
-		ACL		= $protected;
+		ACL			= $protected;   
 	    }
 
 	    EF PKCS15-PrKDF {
-	        file-id		= 4402;
+	        file-id		= 4100;
 		size		= $prkdf-size;
 		acl		= $protected;
 	    }
 
 	    EF PKCS15-PuKDF {
-	        file-id		= 4403;
+	        file-id		= 4101;
 		size		= $pukdf-size;
 		acl		= $protected;
 	    }
 
 	    EF PKCS15-CDF {
-	        file-id		= 4404;
+	        file-id		= 4104;
 		size		= $cdf-size;
 		acl		= $protected;
 	    }
 
 	    EF PKCS15-DODF {
-	        file-id		= 4405;
+	        file-id		= 4107;
 		size		= $dodf-size;
 		ACL		= $protected;
 	    }

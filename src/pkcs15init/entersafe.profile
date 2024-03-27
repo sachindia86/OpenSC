@@ -149,38 +149,38 @@ filesystem {
 					# here ACLs should be defined
 				}
         		EF public-key {
-    	    	    file-id	  = 3000;
+    	    	    file-id	  = 4101;
    					structure = transparent;
 					ACL	  	  = *=NEVER,READ=NONE,UPDATE=$PIN;
         		}
-
+				
         		# Certificate template
         		EF certificate {
-            	    file-id	   = 3100;
+            	    file-id	   = 08F1;
             		structure  = transparent;
 					ACL	  	   = *=NEVER,READ=NONE,UPDATE=$PIN;
         		}
 
         		# Extractable private keys are stored in transparent EFs.
         		# Encryption of the content is performed by libopensc.
-        		EF extractable-key {
-            	    file-id		   = 3200;
-            		structure	   = transparent;
-					ACL	  	  	   = *=NEVER,READ=NONE,UPDATE=$PIN;
-        		}
+        		#EF extractable-key {
+            	#    file-id		   = 3200;
+            	#	structure	   = transparent;
+				#	ACL	  	  	   = *=NEVER,READ=NONE,UPDATE=$PIN;
+        		#}
 
         		# data objects are stored in transparent EFs.
-        		EF data {
-            	    file-id		= 3300;
-            		structure	= transparent;
-					ACL	  	  	= *=NEVER,READ=NONE,UPDATE=NONE;
-        		}
+        		#EF data {
+            	#    file-id		= 3300;
+            	#	structure	= transparent;
+				#	ACL	  	  	= *=NEVER,READ=NONE,UPDATE=NONE;
+        		#}
         		# data objects are stored in transparent EFs.
-        		EF privdata {
-            	    file-id		= 3400;
-            		structure	= transparent;
-					ACL	  	  	= *=NEVER,READ=$PIN,UPDATE=$PIN;
-        		}
+        		#EF privdata {
+            	#    file-id		= 4100;
+            	#	structure	= transparent;
+				#	ACL	  	  	= *=NEVER,READ=$PIN,UPDATE=$PIN;
+        		#}
 
 			}
 		}

@@ -709,6 +709,22 @@ iso7816_select_file(struct sc_card *card, const struct sc_path *in_path, struct 
 	apdu.lc = pathlen;
 	apdu.data = path;
 	apdu.datalen = pathlen;
+	//if (apdu.data[0]==0x2A && apdu.data[1]==0xDF)
+
+	if ((pathlen >= 2) && (pathlen <= 4) && memcmp(path, "\x2A\xDF", 2) == 0) {
+		apdu.p1 = 1;
+		sc_debug_hex(ctx, SC_LOG_DEBUG_NORMAL, "NEEL APDU - DATA FINAL", apdu.data, apdu.datalen);
+	}
+
+	/*
+	if (strstr((const char *)path, "2ADF") != NULL) {
+		sc_debug_hex(ctx, SC_LOG_DEBUG_NORMAL, "NEEL APDU - DATA 0", apdu.data, apdu.datalen);
+	}
+	else
+	{
+		sc_debug_hex(ctx, SC_LOG_DEBUG_NORMAL, "NEEL APDU - DATA NOT FOUND", apdu.data, apdu.datalen);
+	}
+	*/
 
 	if (file_out != NULL) {
 		apdu.p2 = 0;		/* first record, return FCI */

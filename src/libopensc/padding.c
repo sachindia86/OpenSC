@@ -110,7 +110,7 @@ static int sc_pkcs1_add_01_padding(const u8 *in, size_t in_len,
 	*out_len = mod_length;
 	return SC_SUCCESS;
 }
-
+//sc_get_encoding_flags
 int
 sc_pkcs1_strip_01_padding(struct sc_context *ctx, const u8 *in_dat, size_t in_len,
 		u8 *out, size_t *out_len)
@@ -584,6 +584,8 @@ int sc_pkcs1_encode(sc_context_t *ctx, unsigned long flags,
 		tmp_len = in_len;
 	}
 
+	pad_algo=SC_ALGORITHM_RSA_PAD_NONE;
+	hash_algo=SC_ALGORITHM_RSA_HASH_NONE;
 	switch(pad_algo) {
 	case SC_ALGORITHM_RSA_PAD_NONE:
 		/* padding done by card => nothing to do */
@@ -660,13 +662,15 @@ int sc_get_encoding_flags(sc_context_t *ctx,
 		*sflags = iflags;
 		*pflags = 0;
 
-	} else if ((caps & SC_ALGORITHM_RSA_PAD_PSS) &&
+	}
+	else if ((caps & SC_ALGORITHM_RSA_PAD_PSS) &&
 			(iflags & SC_ALGORITHM_RSA_PAD_PSS)) {
 		*sflags |= SC_ALGORITHM_RSA_PAD_PSS;
 		*sflags |= iflags & SC_ALGORITHM_MGF1_HASHES;
 		*pflags = iflags & ~(iflags & (SC_ALGORITHM_MGF1_HASHES | SC_ALGORITHM_RSA_PAD_PSS));
 
-	} else if ((caps & SC_ALGORITHM_RSA_RAW) &&
+	}
+	else if ((caps & SC_ALGORITHM_RSA_RAW) &&
 				(iflags & SC_ALGORITHM_RSA_PAD_PKCS1
 				|| iflags & SC_ALGORITHM_RSA_PAD_PSS
 #ifdef ENABLE_OPENSSL
@@ -684,7 +688,7 @@ int sc_get_encoding_flags(sc_context_t *ctx,
 		*sflags = SC_ALGORITHM_RSA_PAD_PKCS1 | SC_ALGORITHM_RSA_HASH_NONE;
 		*pflags = iflags & SC_ALGORITHM_RSA_HASHES;
 
-	} else if ((iflags & SC_ALGORITHM_AES) == SC_ALGORITHM_AES) { /* TODO: seems like this constant does not belong to the same set of flags used form asymmetric algos. Fix this! */
+		} else if ((iflags & SC_ALGORITHM_AES) == SC_ALGORITHM_AES) { /* TODO: seems like this constant does not belong to the same set of flags used form asymmetric algos. Fix this! */
 		*sflags = 0;
 		*pflags = 0;
 

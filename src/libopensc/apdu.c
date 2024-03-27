@@ -42,7 +42,7 @@
 size_t sc_apdu_get_length(const sc_apdu_t *apdu, unsigned int proto)
 {
 	size_t ret = 4;
-
+//card doesn't support extended APDUs
 	switch (apdu->cse) {
 	case SC_APDU_CASE_1:
 		if (proto == SC_PROTO_T0)
@@ -264,10 +264,10 @@ sc_check_apdu(sc_card_t *card, const sc_apdu_t *apdu)
 	}
 	else if ((apdu->cse & SC_APDU_EXT) != 0) {
 		/* check if the card supports extended APDUs */
-		if ((card->caps & SC_CARD_CAP_APDU_EXT) == 0) {
+		/*if ((card->caps & SC_CARD_CAP_APDU_EXT) == 0) {
 			sc_log(card->ctx, "card doesn't support extended APDUs");
 			goto error;
-		}
+		}*/
 		/* length check for extended APDU */
 		if (apdu->le > 65536 || apdu->lc > 65535)   {
 			sc_log(card->ctx, "failed length check for extended APDU");

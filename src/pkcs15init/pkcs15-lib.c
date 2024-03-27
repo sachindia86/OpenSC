@@ -68,13 +68,13 @@
 #include "pkcs15-init.h"
 #include "pkcs11/pkcs11.h"
 
-#define OPENSC_INFO_FILEPATH		"3F0050154946"
-#define OPENSC_INFO_FILEID		0x4946
+#define OPENSC_INFO_FILEPATH		"3F002ADF5032"
+#define OPENSC_INFO_FILEID		0x5032
 #define OPENSC_INFO_TAG_PROFILE		0x01
 #define OPENSC_INFO_TAG_OPTION		0x02
 
 /* Default ID for new key/pin */
-#define DEFAULT_ID			0x45
+#define DEFAULT_ID			0x81
 #define DEFAULT_PIN_FLAGS		(SC_PKCS15_CO_FLAG_PRIVATE|SC_PKCS15_CO_FLAG_MODIFIABLE)
 #define DEFAULT_PRKEY_FLAGS		(SC_PKCS15_CO_FLAG_PRIVATE|SC_PKCS15_CO_FLAG_MODIFIABLE)
 #define DEFAULT_PUBKEY_FLAGS		(SC_PKCS15_CO_FLAG_MODIFIABLE)
@@ -222,6 +222,7 @@ get_profile_from_config(struct sc_card *card, char *buffer, size_t size)
 			continue;
 
 		tmp = scconf_get_str(blk, "profile", NULL);
+		//tmp="ambimat";
 		if (tmp != NULL) {
 			strlcpy(buffer, tmp, size);
 			return 1;
@@ -383,7 +384,7 @@ sc_pkcs15init_bind(struct sc_card *card, const char *name, const char *profile_o
 			break;
 		}
 
-		r = sc_profile_load(profile, card_profile);
+		r = sc_profile_load(profile, "ambimat");
 		if (r < 0)   {
 			sc_log(ctx, "Failed to load profile '%s': %s", card_profile, sc_strerror(r));
 			break;
@@ -2005,10 +2006,10 @@ sc_pkcs15init_store_public_key(struct sc_pkcs15_card *p15card, struct sc_profile
 	LOG_TEST_GOTO_ERR(ctx, r, "SPKI encode public key error");
 
 	/* Now create key file and store key */
-	if (type == SC_PKCS15_TYPE_PUBKEY_EC)
-		r = sc_pkcs15init_store_data(p15card, profile, object, &key_info->direct.spki, &key_info->path);
-	else
-		r = sc_pkcs15init_store_data(p15card, profile, object, &object->content, &key_info->path);
+//	if (type == SC_PKCS15_TYPE_PUBKEY_EC)
+//		r = sc_pkcs15init_store_data(p15card, profile, object, &key_info->direct.spki, &key_info->path);
+//	else
+//		r = sc_pkcs15init_store_data(p15card, profile, object, &object->content, &key_info->path);
 
 	path = &key_info->path;
 	if (path->count == 0) {
@@ -4015,6 +4016,8 @@ sc_pkcs15init_authenticate(struct sc_profile *profile, struct sc_pkcs15_card *p1
 		sc_log(ctx, "access control mechanism is not active (always allowed)");
 		LOG_FUNC_RETURN(ctx, r);
 	}
+
+	//p15card->card->caps |=  SC_CARD_CAP_USE_FCI_AC; // added by neel
 
 	if (p15card->card->caps & SC_CARD_CAP_USE_FCI_AC) {
 		r = sc_select_file(p15card->card, &file->path, &file_tmp);

@@ -56,9 +56,9 @@
 
 #define WORD_SIZE	64
 
-/*
-#define DEBUG_PROFILE
-*/
+
+//#define DEBUG_PROFILE
+
 
 /*
  * Parser state
@@ -2086,8 +2086,8 @@ build_argv(struct state *cur, const char *cmdname,
 		{
 			scconf_list *list;
 
-			printf("Expanding macro %s:", mac->name);
-			for (list = mac->value; list; list = list->next)
+			printf("Expanding macro %s:", macro->name);
+			for (list = macro->value; list; list = list->next)
 				printf(" %s", list->data);
 			printf("\n");
 		}

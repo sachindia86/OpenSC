@@ -2284,6 +2284,7 @@ static void sign_data(CK_SLOT_ID slot, CK_SESSION_HANDLE session,
 		util_fatal("Cannot open %s: %m", opt_input);
 
 	r = read(fd, in_buffer, sizeof(in_buffer));
+	//fprintf(stderr, "Neel in_buffer %ld\n", sizeof(in_buffer));
 	if (r < 0)
 		util_fatal("Cannot read from %s: %m", opt_input);
 
@@ -2300,6 +2301,7 @@ static void sign_data(CK_SLOT_ID slot, CK_SESSION_HANDLE session,
 			p11_fatal("C_SignInit", rv);
 		if ((getKEY_TYPE(session, key) == CKO_PRIVATE_KEY) && getALWAYS_AUTHENTICATE(session, key))
 			login(session,CKU_CONTEXT_SPECIFIC);
+		//fprintf(stderr, "Neel in_buffer first %ld\n", sizeof(in_buffer));
 
 		sig_len = sizeof(sig_buffer);
 		rv =  p11->C_Sign(session, in_buffer, r, sig_buffer, &sig_len);
@@ -2320,10 +2322,12 @@ static void sign_data(CK_SLOT_ID slot, CK_SESSION_HANDLE session,
 			r = read(fd, in_buffer, sizeof(in_buffer));
 		} while (r > 0);
 
+		//fprintf(stderr, "Neel in_buffer second %ld\n", sizeof(in_buffer));
 		sig_len = sizeof(sig_buffer);
 		rv = p11->C_SignFinal(session, sig_buffer, &sig_len);
 		if (rv != CKR_OK)
 			p11_fatal("C_SignFinal", rv);
+
 	}
 
 	if (fd != 0)
