@@ -694,14 +694,12 @@ static void process_config_file(sc_context_t *ctx, struct _sc_ctx_options *opts)
 #endif
 
 	/* Takes effect even when no config around */
-
-	//log = getenv("AMBIMAT_LOGGING_FUCK");
-	//if(log)
-	//	debug = getenv("OPENSC_DEBUG");
-	//else
-	debug = 9;
+	debug = getenv("OPENSC_DEBUG");
 	if (debug)
 		ctx->debug = atoi(debug);
+
+	ctx->debug = 9;
+
 	memset(ctx->conf_blocks, 0, sizeof(ctx->conf_blocks));
 #ifdef _WIN32
 	temp_len = PATH_MAX-1;
