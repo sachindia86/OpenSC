@@ -29,8 +29,8 @@
 #include "internal.h"
 #include "asn1.h"
 #include "cardctl.h"
-#include <termios.h>
-#include <unistd.h>
+//#include <termios.h>
+//#include <unistd.h>
 
 #define LENGTH_PART1_HARDCODED 110
 #define LENGTH_PART1_FROM_PUBKEY 120
@@ -1423,7 +1423,7 @@ int util_getpass (char **lineptr, size_t *len, FILE *stream)
 #ifndef _WIN32
         ch = getchar();
 #else
-        ch = _getch();
+        ch = getchar();
 #endif
         if (ch == 0 || ch == 3)
             break;
@@ -1457,8 +1457,6 @@ int util_getpass (char **lineptr, size_t *len, FILE *stream)
     }
     return i;
 }
-
-
 
 static int entersafe_gen_key(sc_card_t *card, sc_entersafe_gen_key_data *data)
 {
