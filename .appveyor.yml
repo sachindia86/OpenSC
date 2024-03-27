@@ -2,10 +2,7 @@ version: 0.23.0.{build}
 
 init:
   - cmd: git config --global --add safe.directory /cygdrive/c/projects/opensc
-
-branches:
-  only:
-   - 0.23.0-branch
+  - cmd: git clone -q --branch=0.23.0-branch https://github.com/sachindia86/OpenSC.git C:\projects\opensc
 
 platform:
   - x86
