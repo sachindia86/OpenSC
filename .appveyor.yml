@@ -3,6 +3,10 @@ version: 0.23.0.{build}
 init:
   - cmd: git config --global --add safe.directory /cygdrive/c/projects/opensc
 
+branches:
+  only:
+   - 0.23.0-branch
+
 platform:
   - x86
 #  - x64
