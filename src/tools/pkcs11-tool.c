@@ -2329,7 +2329,8 @@ static void sign_data(CK_SLOT_ID slot, CK_SESSION_HANDLE session,
 			p11_fatal("C_SignFinal", rv);
 	}
 
-	sc_debug_hex(ctx, SC_LOG_DEBUG_NORMAL, "Neel after C_SignFinal", sig_buffer, sig_len);
+	printf("Neel after C_SignFinal\n");
+	sc_dump_hex((const u8 *) sig_buffer, (size_t)sig_len);
 
 	if (fd != 0)
 		close(fd);
@@ -2362,7 +2363,8 @@ static void sign_data(CK_SLOT_ID slot, CK_SESSION_HANDLE session,
 		}
 	}
 
-	sc_debug_hex(ctx, SC_LOG_DEBUG_NORMAL, "Neel before write", sig_buffer, sig_len);
+	printf("Neel before write\n");
+	sc_dump_hex((const u8 *) sig_buffer, (size_t)sig_len);
 	r = write(fd, sig_buffer, sig_len);
 
 	if (r < 0)
