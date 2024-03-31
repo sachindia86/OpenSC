@@ -696,7 +696,7 @@ static void process_config_file(sc_context_t *ctx, struct _sc_ctx_options *opts)
 	/* Takes effect even when no config around */
 	debug = getenv("OPENSC_DEBUG");
 
-	debug = '0';
+	debug = "0";
 
 	if (debug)
 		ctx->debug = atoi(debug);
