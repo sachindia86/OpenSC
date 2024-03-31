@@ -695,10 +695,11 @@ static void process_config_file(sc_context_t *ctx, struct _sc_ctx_options *opts)
 
 	/* Takes effect even when no config around */
 	debug = getenv("OPENSC_DEBUG");
+
+	debug = '0';
+
 	if (debug)
 		ctx->debug = atoi(debug);
-
-	ctx->debug = 9;
 
 	memset(ctx->conf_blocks, 0, sizeof(ctx->conf_blocks));
 #ifdef _WIN32

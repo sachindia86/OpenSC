@@ -282,7 +282,12 @@ enum {
 
 	/* eOI cards */
 	SC_CARD_TYPE_EOI = 41000,
-	SC_CARD_TYPE_EOI_CONTACTLESS
+	SC_CARD_TYPE_EOI_CONTACTLESS,
+
+	/*Ambimat JCOP4 Cards*/
+	SC_CARD_TYPE_AMBIMAT_BASE = 42000,
+	SC_CARD_TYPE_AMBIMAT_JCOS4_PKCS_T0,
+	SC_CARD_TYPE_AMBIMAT_JCOS4_PKCS_T0_T1
 };
 
 extern sc_card_driver_t *sc_get_default_driver(void);
