@@ -56,7 +56,7 @@
 #define ENABLE_SHARED 1
 #define ENABLE_NOTIFY 1
 
-#define SC_PKCS15_PROFILE_DIRECTORY "C:\\Program Files\\OpenSC Project\\OpenSC\\profiles"
+#define SC_PKCS15_PROFILE_DIRECTORY "C:\\OpenSC\\profiles"
 
 #define PATH_MAX FILENAME_MAX
 
@@ -93,7 +93,7 @@
 #endif
 
 #ifndef CVCDIR
-#define CVCDIR "%PROGRAMFILES%\\OpenSC Project\\OpenSC\\cvc"
+#define CVCDIR "C:\\OpenSC\\cvc"
 #endif
 
 #ifndef DEFAULT_PKCS11_PROVIDER

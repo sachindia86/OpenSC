@@ -799,7 +799,7 @@ fi
 if test "${cvcdir}" = "" ; then
 	case "${host}" in
 		*-mingw*|*-winnt*|*-cygwin*)
-			cvcdir="%PROGRAMFILES%\\\OpenSC Project\\\OpenSC\\\cvc"
+			cvcdir="C:\\\OpenSC\\\cvc"
 			;;
 		*)
 			AC_MSG_WARN([use --enable-cvcdir=DIR])
@@ -826,7 +826,7 @@ if test -z "${x509dir}"
 then
 	case "${host}" in
 		*-mingw*|*-winnt*|*-cygwin*)
-			x509dir="%PROGRAMFILES%\\\OpenSC Project\\\OpenSC\\\x509"
+			x509dir="C:\\\OpenSC\\\x509"
 			;;
 		*)
 			AC_MSG_WARN([use --enable-x509dir=DIR])
@@ -973,7 +973,7 @@ if test "${enable_sm}" = "yes"; then
 	DEFAULT_SM_MODULE="${LIB_PRE}smm-local${DYN_LIB_EXT}"
 	case "${host}" in
 		*-mingw*|*-winnt*|*-cygwin*)
-			DEFAULT_SM_MODULE_PATH="%PROGRAMFILES%\\\OpenSC Project\\\OpenSC\\\tools"
+			DEFAULT_SM_MODULE_PATH="C:\\\OpenSC\\\tools"
 		;;
 		*)
 			DEFAULT_SM_MODULE_PATH="${libdir}"
@@ -986,8 +986,8 @@ if test "${with_pkcs11_provider}" = "detect"; then
 		DEFAULT_PKCS11_PROVIDER="${libdir}/opensc-pkcs11${DYN_LIB_EXT}"
 		DEFAULT_ONEPIN_PKCS11_PROVIDER="${libdir}/onepin-opensc-pkcs11${DYN_LIB_EXT}"
 	else
-		DEFAULT_PKCS11_PROVIDER="%PROGRAMFILES%\\\OpenSC Project\\\OpenSC\\\pkcs11\\\opensc-pkcs11.dll"
-		DEFAULT_ONEPIN_PKCS11_PROVIDER="%PROGRAMFILES%\\\OpenSC Project\\\OpenSC\\\pkcs11\\\onepin-opensc-pkcs11.dll"
+		DEFAULT_PKCS11_PROVIDER="C:\\\OpenSC\\\pkcs11\\\opensc-pkcs11.dll"
+		DEFAULT_ONEPIN_PKCS11_PROVIDER="C:\\\OpenSC\\\pkcs11\\\onepin-opensc-pkcs11.dll"
 	fi
 else
 	DEFAULT_PKCS11_PROVIDER="${with_pkcs11_provider}"
