@@ -47,7 +47,7 @@
 
     <Icon Id="OpenSC.ico" SourceFile="OpenSC.ico" />
     <Property Id="ARPPRODUCTICON" Value="OpenSC.ico" />
-
+    
     <Property Id="TARGETDIR" Value="C:\"/>
 
     <!--Custom actions-->
@@ -70,7 +70,7 @@
           <!-- Most of the stuff goes to the Program Files folder -->
           <Directory Id="INSTALLDIR" Name="OpenSC">
             <!-- opensc.conf sample goes to installation directory -->
-            <Component Id="opensc.conf" Guid="*" Win64="$(var.Win64YesNo)">
+            <Component Id="opensc.conf" Guid="0d064e0e-edf2-4d92-b623-44dafe1b213c" Win64="$(var.Win64YesNo)">
               <File Source="$(var.SOURCE_DIR)\etc\opensc.conf" Name="opensc.conf" KeyPath="yes"/>
               <!-- -->
               <RegistryKey Root="HKLM" Key="Software\[Manufacturer]\OpenSC">
@@ -82,7 +82,7 @@
             </Component>
 
             <Directory Id="INSTALLDIR_MINIDRIVER" Name="minidriver">
-              <Component Id="opensc_minidriver.dll" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="opensc_minidriver.dll" Guid="0933721b-dcaa-4a03-b687-6ac93311a075" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\minidriver\opensc-minidriver.dll" Vital="yes"/>
               </Component>
               <!-- install an alias for the Base smart card CSP. Using a different CSP in minidriver installation deactivate the plug and play feature
@@ -91,7 +91,7 @@
               <!-- PR #2523 no longer uses "Provider = OpenSC CSP", but existing certificates in cert store 
               may have "Provider = OpenSC CSP" so we continue to add it for backward compatibility.
           Run: "certutil -Silent -store -user My" and look for "Provider = OpenSC CSP". -->
-              <Component Id="openscBaseCSP" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="openscBaseCSP" Guid="ed4eea59-2c82-4b61-b7b3-4d3e61357a91" Win64="$(var.Win64YesNo)">
                 <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Cryptography\Defaults\Provider\OpenSC CSP">
                   <RegistryValue Type="string" Name="Image Path" Value="basecsp.dll" KeyPath="yes"/>
                   <RegistryValue Type="integer" Name="Type" Value="1"/>
@@ -105,7 +105,7 @@
                     <?endif?>
                     -->
               </Component>
-              <Component Id="CertPropSvc" Guid="*" Win64="$(var.Win64YesNo)" Permanent="yes">
+              <Component Id="CertPropSvc" Guid="cb674f6b-da05-476c-8281-a207b85d3d47" Win64="$(var.Win64YesNo)" Permanent="yes">
                 <!-- CertPropSvc loads the minidriver and propagates the smart card's
                      certificates to the user's certificate store, see https://technet.microsoft.com/en-us/itpro/windows/keep-secure/smart-card-certificate-propagation-service -->
                 <ServiceControl Id="ControlCertPropSvcStart" Name="CertPropSvc" Start="install" Wait="no" />
@@ -117,10 +117,10 @@
             </Directory>
 
             <Directory Id="INSTALLDIR_PKCS11" Name="pkcs11">
-              <Component Id="opensc_pkcs11.dll" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="opensc_pkcs11.dll" Guid="6548a032-c81e-4eb6-9bd1-23e2fa331428" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\pkcs11\opensc-pkcs11.dll" Vital="yes"/>
               </Component>
-              <Component Id="onepin_opensc_pkcs11.dll" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="onepin_opensc_pkcs11.dll" Guid="888f9c56-4931-4911-a7ab-6115e4f65af8" Win64="$(var.Win64YesNo)">
                 <File Name="onepin-opensc-pkcs11.dll" Source="$(var.SOURCE_DIR)\src\pkcs11\opensc-pkcs11.dll" Vital="yes"/>
               </Component>
             </Directory>
@@ -128,93 +128,93 @@
             <!-- Tools have their own folder -->
             <Directory Id="INSTALLDIR_TOOLS" Name="tools">
               <?ifdef zlib ?>
-                <Component Id="zlib1.dll" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="zlib1.dll" Guid="560c2273-1dfd-494f-ae13-051a92cd33b9" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.zlib)\zlib1.dll" Vital="yes"/>
                 </Component>
               <?endif ?>
-              <Component Id="opensc.dll" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="opensc.dll" Guid="7d35de3d-9189-4961-94e0-b68d87b9bc05" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\libopensc\opensc.dll" Vital="yes"/>
               </Component>
-              <Component Id="opensc_asn1.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="opensc_asn1.exe" Guid="8d584710-b9bc-413a-ba18-227733ca2690" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\opensc-asn1.exe" Vital="yes"/>
               </Component>
-              <Component Id="opensc_explorer.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="opensc_explorer.exe" Guid="45a28681-45e4-4074-a6b9-1e4bc364a2d0" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\opensc-explorer.exe" Vital="yes"/>
               </Component>
-              <Component Id="opensc_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="opensc_tool.exe" Guid="6ec68531-ed98-4852-b69f-af54f538c388" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\opensc-tool.exe" Vital="yes"/>
               </Component>
-              <Component Id="opensc_notify.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="opensc_notify.exe" Guid="61633dc7-9161-4311-983d-1b47e441bdcc" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\opensc-notify.exe" Vital="yes"/>
               </Component>
-              <Component Id="pkcs11_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="pkcs11_tool.exe" Guid="0ad34e80-cdcd-4181-9095-b4b49cc2e308" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\pkcs11-tool.exe" Vital="yes"/>
               </Component>
-              <Component Id="pkcs11_register.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="pkcs11_register.exe" Guid="9c8d2d7d-329b-441d-9fbd-f88d7bc993ef" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\pkcs11-register.exe" Vital="yes"/>
               </Component>
-              <Component Id="cardos_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="cardos_tool.exe" Guid="ef372d54-294d-4ccc-9482-f989b2df834d" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\cardos-tool.exe" Vital="yes"/>
               </Component>
-              <Component Id="egk_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="egk_tool.exe" Guid="d3f380e0-414d-4908-a6a1-71a2e31034d4" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\egk-tool.exe" Vital="yes"/>
               </Component>
-              <Component Id="goid_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="goid_tool.exe" Guid="1c4fe98f-2321-4cc0-b6f6-4b40ae20ab40" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\goid-tool.exe" Vital="yes"/>
               </Component>
-              <Component Id="eidenv.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="eidenv.exe" Guid="db490709-9596-41c9-9a7b-b9bc02707939" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\eidenv.exe" Vital="yes"/>
               </Component>
-              <Component Id="pkcs15_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="pkcs15_tool.exe" Guid="5cf06337-2703-4bfb-b359-d551e3a04da5" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\pkcs15-tool.exe" Vital="yes"/>
               </Component>
-              <Component Id="pkcs15_crypt.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="pkcs15_crypt.exe" Guid="b5744617-0b6a-41fe-99bb-1167d331eb96" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\pkcs15-crypt.exe" Vital="yes"/>
               </Component>
-              <Component Id="openpgp_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="openpgp_tool.exe" Guid="383de9a0-8d87-412d-b6a5-bd66da8c4e7b" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\openpgp-tool.exe" Vital="yes"/>
               </Component>
-              <Component Id="iasecc_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="iasecc_tool.exe" Guid="d9c89ac1-4b5a-4455-a4ae-d6782696fbfd" Win64="$(var.Win64YesNo)">
                 <File Source="$(var.SOURCE_DIR)\src\tools\iasecc-tool.exe" Vital="yes"/>
               </Component>
               <?ifdef OpenSSL ?>
-                <Component Id="smm_local.dll" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="smm_local.dll" Guid="2d8d6a38-bad0-4085-bdcd-aaf805543449" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\smm\smm-local.dll" Vital="yes"/>
                 </Component>
-                <Component Id="cryptoflex_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="cryptoflex_tool.exe" Guid="50e06734-7898-47e0-823e-0762edcfe62e" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\cryptoflex-tool.exe" Vital="yes"/>
                 </Component>
-                <Component Id="pkcs15_init.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="pkcs15_init.exe" Guid="521605a1-6432-4687-aca3-af5102d826cd" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\pkcs15-init.exe" Vital="yes"/>
                 </Component>
-                <Component Id="netkey_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="netkey_tool.exe" Guid="9a2429d4-dcec-4fd9-92c6-2d5195cced0c" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\netkey-tool.exe" Vital="yes"/>
                 </Component>
-                <Component Id="piv_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="piv_tool.exe" Guid="050ed3f4-3d33-41b8-9b58-d0241eb9ca53" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\piv-tool.exe" Vital="yes"/>
                 </Component>
-                <Component Id="westcos_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="westcos_tool.exe" Guid="7bcf3e9a-2311-40f6-a4a4-5556ac2f4efd" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\westcos-tool.exe" Vital="yes"/>
                 </Component>
-                <Component Id="sc_hsm_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="sc_hsm_tool.exe" Guid="b4cc61a7-da48-4826-953e-7794b4509f3e" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\sc-hsm-tool.exe" Vital="yes"/>
                 </Component>
-                <Component Id="dnie_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="dnie_tool.exe" Guid="df002aa0-28bf-481f-b999-d10d6be00097" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\dnie-tool.exe" Vital="yes"/>
                 </Component>
-                <Component Id="gids_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="gids_tool.exe" Guid="4078cd45-f51c-4984-b7b4-de8104bd26ed" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\gids-tool.exe" Vital="yes"/>
                 </Component>
-                <Component Id="npa_tool.exe" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="npa_tool.exe" Guid="3528f4cb-e8a9-475c-aa7e-28fc2e39e652" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\tools\npa-tool.exe" Vital="yes"/>
                 </Component>
               <?endif ?>
-              <Component Id="Autostart_tools" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="Autostart_tools" Guid="d86453c7-19e5-49a2-925f-7bf25346d243" Win64="$(var.Win64YesNo)">
                 <RegistryKey Root="HKMU" Key="Software\Microsoft\Windows\CurrentVersion\Run">
                   <RegistryValue Type="string" Name="pkcs11-register.exe" Value="[INSTALLDIR_TOOLS]pkcs11-register.exe" />
                 </RegistryKey>
               </Component>
-              <Component Id="Autostart_native_tools" Guid="*" Win64="$(var.Win64YesNo)">
+              <Component Id="Autostart_native_tools" Guid="63801cda-0a3d-416a-bb0c-6ea95a9e850a" Win64="$(var.Win64YesNo)">
                 <?if $(var.Platform) = "x86"?>
                 <Condition>
                   <![CDATA[NOT Msix64]]>
@@ -227,111 +227,111 @@
             </Directory>
             <?ifdef OpenSSL ?>
               <Directory Id="INSTALLDIR_PROFILES" Name="profiles">
-                <Component Id="cyberflex.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="cyberflex.profile" Guid="42ef6ffa-9f23-44d0-8560-6dbb7c01bfe8" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\cyberflex.profile"/>
                 </Component>
-                <Component Id="flex.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="flex.profile" Guid="aec09e59-6160-4507-827f-8c8a6f40b24b" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\flex.profile"/>
                 </Component>
-                <Component Id="gpk.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="gpk.profile" Guid="cfb2dc35-107f-43ad-8448-90d6e7b26a45" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\gpk.profile"/>
                 </Component>
-                <Component Id="incrypto34.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="incrypto34.profile" Guid="4a465cb5-933b-4459-ba7e-8f9510e20d6d" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\incrypto34.profile"/>
                 </Component>
-                <Component Id="muscle.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="muscle.profile" Guid="0e5bbdbb-7031-4ddd-ae5e-98cfe4139056" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\muscle.profile"/>
                 </Component>
-                <Component Id="pkcs15.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="pkcs15.profile" Guid="b3968334-e380-4116-abe8-c2bfd15dec21" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\pkcs15.profile"/>
                 </Component>
-                <Component Id="asepcos.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="asepcos.profile" Guid="10929a38-6316-408a-9f4c-4b01d35f85d1" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\asepcos.profile"/>
                 </Component>
-                <Component Id="cardos.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="cardos.profile" Guid="9fe3b6a7-7d00-453f-a85d-2ea3e81adf51" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\cardos.profile"/>
                 </Component>
-                <Component Id="entersafe.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="entersafe.profile" Guid="edb97aff-c014-4778-9ec4-fd7cc1e8a84e" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\entersafe.profile"/>
                 </Component>
-                <Component Id="epass2003.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="epass2003.profile" Guid="9109cb69-c1b1-4d0b-a569-dabd9c699dab" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\epass2003.profile"/>
                 </Component>
-                <Component Id="myeid.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="myeid.profile" Guid="428ee02d-947a-4979-805d-d4c4d0fc402e" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\myeid.profile"/>
                 </Component>
-                <Component Id="setcos.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="setcos.profile" Guid="44cd8409-8c67-4ecd-b6a8-52643d2c821a" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\setcos.profile"/>
                 </Component>
-                <Component Id="starcos.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="starcos.profile" Guid="61302697-5d5d-491e-808f-0e6cb32482f2" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\starcos.profile"/>
                 </Component>
-                <Component Id="westcos.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="westcos.profile" Guid="26b9d5a8-9cb6-465e-a9f0-ccae87df4fdb" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\westcos.profile"/>
                 </Component>
-                <Component Id="oberthur.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="oberthur.profile" Guid="f28c3071-f539-4b1e-9e0d-93b00e8e25b2" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\oberthur.profile"/>
                 </Component>
-                <Component Id="authentic.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="authentic.profile" Guid="1d251957-6665-4cea-87f7-ece7861018e2" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\authentic.profile"/>
                 </Component>
-                <Component Id="rutoken.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="rutoken.profile" Guid="ab6f9beb-cab1-452c-8228-654a48f9eb32" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\rutoken.profile"/>
                 </Component>
-                <Component Id="rutoken_ecp.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="rutoken_ecp.profile" Guid="ba387ca1-fdf5-4180-ad56-6affa1111166" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\rutoken_ecp.profile"/>
                 </Component>
-                <Component Id="rutoken_lite.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="rutoken_lite.profile" Guid="700e1fca-3c22-4abd-b3c1-6f0bd833c1de" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\rutoken_lite.profile"/>
                 </Component>
-                <Component Id="ias_adele_admin1.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="ias_adele_admin1.profile" Guid="7c504469-9992-42ae-93fe-9a9e2d7c9fa1" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\ias_adele_admin1.profile"/>
                 </Component>
-                <Component Id="ias_adele_admin2.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="ias_adele_admin2.profile" Guid="95944dbf-83fa-4aca-a4b8-fbe232563d19" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\ias_adele_admin2.profile"/>
                 </Component>
-                <Component Id="ias_adele_common.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="ias_adele_common.profile" Guid="25cfffed-dc92-4006-90f2-69763ad4f60d" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\ias_adele_common.profile"/>
                 </Component>
-                <Component Id="iasecc_admin_eid.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="iasecc_admin_eid.profile" Guid="bf1a30ac-e9e2-4631-9392-5051178e6db6" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\iasecc_admin_eid.profile"/>
                 </Component>
-                <Component Id="iasecc_generic_oberthur.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="iasecc_generic_oberthur.profile" Guid="fffe902a-7318-49ac-9416-40dece5e400a" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\iasecc_generic_oberthur.profile"/>
                 </Component>
-                <Component Id="iasecc_generic_pki.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="iasecc_generic_pki.profile" Guid="f6a951e4-cba6-4789-a8d9-21937f9d81b3" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\iasecc_generic_pki.profile"/>
                 </Component>
-                <Component Id="iasecc.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="iasecc.profile" Guid="c5e882a0-48d9-4c72-89b9-1772ed769bea" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\iasecc.profile"/>
                 </Component>
-                <Component Id="schsm.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="schsm.profile" Guid="a7c5344f-45ca-4d7f-86e4-4d99f8b1a746" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\sc-hsm.profile"/>
                 </Component>
-                <Component Id="openpgp.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="openpgp.profile" Guid="20385f88-ad8a-461b-905e-0ed8e9af4c51" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\openpgp.profile"/>
                 </Component>
-                <Component Id="isoApplet.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="isoApplet.profile" Guid="9cdaae06-53c4-46b2-ad2d-af503ec3f1dd" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\isoApplet.profile"/>
                 </Component>
-                <Component Id="gids.profile" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="gids.profile" Guid="e45def7d-0fd4-49eb-8944-4442d083cbd6" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\src\pkcs15init\gids.profile"/>
                 </Component>
               </Directory>
             <?endif ?>
             <?ifdef OpenPACE ?>
               <Directory Id="INSTALLDIR_CVC" Name="cvc">
-                <Component Id="DESRCACC100001" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="DESRCACC100001" Guid="94e789b2-48c6-46f8-ab7f-b7cadc9309bc" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\etc\DESRCACC100001"/>
                 </Component>
-                <Component Id="DESCHSMCVCA00001" Guid="*" Win64="$(var.Win64YesNo)">
+                <Component Id="DESCHSMCVCA00001" Guid="df97eaac-9f7e-4b90-9a32-ab5675511f8a" Win64="$(var.Win64YesNo)">
                   <File Source="$(var.SOURCE_DIR)\etc\DESCHSMCVCA00001"/>
                 </Component>
               </Directory>
             <?endif ?>
           </Directory>
           <Directory Id="PKCS11SPYINSTALLDIR" Name="PKCS11-Spy">
-            <Component Id="pkcs11_spy.dll" Guid="*" Win64="$(var.Win64YesNo)">
+            <Component Id="pkcs11_spy.dll" Guid="d8992283-8a5f-494a-9ed2-37cde3fa88c5" Win64="$(var.Win64YesNo)">
               <File Source="$(var.SOURCE_DIR)\src\pkcs11\pkcs11-spy.dll"/>
               <RegistryKey Root="HKLM" Key="Software\[Manufacturer]\PKCS11-Spy">
                 <RegistryValue Type="string" Name="Module" Value="[INSTALLDIR_PKCS11]opensc-pkcs11.dll"/>
@@ -343,7 +343,7 @@
       <!--</Directory>-->
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuDir" Name="OpenSC Project">
-          <Component Id="ProgramMenuDir" Guid="*">
+          <Component Id="ProgramMenuDir" Guid="312ee64f-38c6-436a-bac4-11696919d86e">
             <util:InternetShortcut Id="OnlineDocumentationShortcut" Name="OpenSC wiki" Target="https://github.com/OpenSC/OpenSC/wiki"/>
             <RemoveFolder Id="ProgramMenuDir" On="uninstall"/>
             <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
