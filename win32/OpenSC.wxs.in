@@ -45,8 +45,8 @@
     <Property Id="ARPURLUPDATEINFO" Value="@OPENSC_VS_FF_PRODUCT_UPDATES@"/>
     <Property Id="ARPCONTACT" Value="@OPENSC_VS_FF_COMPANY_URL@"/>
 
-	<Icon Id="OpenSC.ico" SourceFile="OpenSC.ico" />
-	<Property Id="ARPPRODUCTICON" Value="OpenSC.ico" />
+    <Icon Id="OpenSC.ico" SourceFile="OpenSC.ico" />
+    <Property Id="ARPPRODUCTICON" Value="OpenSC.ico" />
 
     <!--Custom actions-->
     <Binary Id="customactions" SourceFile="$(var.SOURCE_DIR)\win32\customactions.dll" />
@@ -63,8 +63,8 @@
         <!-- <ServiceControl Id="StartSCardSvrService" Name="SCardSvr" Start="install" /> -->
       </Component>
 
-      <Directory Id="$(var.PlatformProgramFilesFolder)" Name="PFiles">
-        <Directory Id="OpenSC_Project_Dir" Name="OpenSC Project">
+      <!--<Directory Id="$(var.PlatformProgramFilesFolder)" Name="PFiles">-->
+        <!--<Directory Id="OpenSC_Project_Dir" Name="OpenSC Project">-->
           <!-- Most of the stuff goes to the Program Files folder -->
           <Directory Id="INSTALLDIR" Name="OpenSC">
             <!-- opensc.conf sample goes to installation directory -->
@@ -87,8 +87,8 @@
                   but not all other components like the pin change screen available after ctrl+alt+del.
                   It is because the "80000001" entry is still returning the minidriver dll.-->
               <!-- PR #2523 no longer uses "Provider = OpenSC CSP", but existing certificates in cert store 
-	          may have "Provider = OpenSC CSP" so we continue to add it for backward compatibility.
-		  Run: "certutil -Silent -store -user My" and look for "Provider = OpenSC CSP". -->
+              may have "Provider = OpenSC CSP" so we continue to add it for backward compatibility.
+          Run: "certutil -Silent -store -user My" and look for "Provider = OpenSC CSP". -->
               <Component Id="openscBaseCSP" Guid="*" Win64="$(var.Win64YesNo)">
                 <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Cryptography\Defaults\Provider\OpenSC CSP">
                   <RegistryValue Type="string" Name="Image Path" Value="basecsp.dll" KeyPath="yes"/>
@@ -337,8 +337,8 @@
               </RegistryKey>
             </Component>
           </Directory>
-        </Directory>
-      </Directory>
+        <!--</Directory>-->
+      <!--</Directory>-->
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuDir" Name="OpenSC Project">
           <Component Id="ProgramMenuDir" Guid="*">
