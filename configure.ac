@@ -986,8 +986,8 @@ if test "${with_pkcs11_provider}" = "detect"; then
 		DEFAULT_PKCS11_PROVIDER="${libdir}/opensc-pkcs11${DYN_LIB_EXT}"
 		DEFAULT_ONEPIN_PKCS11_PROVIDER="${libdir}/onepin-opensc-pkcs11${DYN_LIB_EXT}"
 	else
-		DEFAULT_PKCS11_PROVIDER="C:\\\OpenSC\\\pkcs11\\\opensc-pkcs11.dll"
-		DEFAULT_ONEPIN_PKCS11_PROVIDER="C:\\\OpenSC\\\pkcs11\\\onepin-opensc-pkcs11.dll"
+		DEFAULT_PKCS11_PROVIDER="C:\\\OpenSC\\\opensc-pkcs11.dll"
+		DEFAULT_ONEPIN_PKCS11_PROVIDER="C:\\\OpenSC\\\onepin-opensc-pkcs11.dll"
 	fi
 else
 	DEFAULT_PKCS11_PROVIDER="${with_pkcs11_provider}"
