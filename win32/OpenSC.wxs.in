@@ -48,6 +48,8 @@
     <Icon Id="OpenSC.ico" SourceFile="OpenSC.ico" />
     <Property Id="ARPPRODUCTICON" Value="OpenSC.ico" />
 
+    <Property Id="TARGETDIR" Value="C:\"/>
+
     <!--Custom actions-->
     <Binary Id="customactions" SourceFile="$(var.SOURCE_DIR)\win32\customactions.dll" />
     <CustomAction Id="RemoveSmartCardConfiguration" BinaryKey="customactions" DllEntry="RemoveSmartCardConfiguration" Execute="deferred" Impersonate="no"/>
