@@ -29,8 +29,11 @@
 #include "internal.h"
 #include "asn1.h"
 #include "cardctl.h"
-//#include <termios.h>
-//#include <unistd.h>
+#ifndef _WIN32
+#include <termios.h>
+#else
+#include <conio.h>
+#endif
 
 #define LENGTH_PART1_HARDCODED 110
 #define LENGTH_PART1_FROM_PUBKEY 120
