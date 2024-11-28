@@ -120,46 +120,46 @@ static const struct _sc_driver_entry internal_card_drivers[] = {
 #ifdef ENABLE_OPENSSL
 	{ "entersafe",(void *(*)(void)) sc_get_entersafe_driver },
 #ifdef ENABLE_SM
-	{ "epass2003",(void *(*)(void)) sc_get_epass2003_driver },
+	//{ "epass2003",(void *(*)(void)) sc_get_epass2003_driver },
 #endif
 #endif
-	{ "rutoken",	(void *(*)(void)) sc_get_rutoken_driver },
-	{ "rutoken_ecp",(void *(*)(void)) sc_get_rtecp_driver },
-	{ "myeid",      (void *(*)(void)) sc_get_myeid_driver },
+	//{ "rutoken",	(void *(*)(void)) sc_get_rutoken_driver },
+	//{ "rutoken_ecp",(void *(*)(void)) sc_get_rtecp_driver },
+	//{ "myeid",      (void *(*)(void)) sc_get_myeid_driver },
 #if defined(ENABLE_OPENSSL) && defined(ENABLE_SM)
-	{ "dnie",       (void *(*)(void)) sc_get_dnie_driver },
+	//{ "dnie",       (void *(*)(void)) sc_get_dnie_driver },
 #endif
-	{ "masktech",	(void *(*)(void)) sc_get_masktech_driver },
-	{ "esteid2018",	(void *(*)(void)) sc_get_esteid2018_driver },
-	{ "idprime",	(void *(*)(void)) sc_get_idprime_driver },
+	//{ "masktech",	(void *(*)(void)) sc_get_masktech_driver },
+	//{ "esteid2018",	(void *(*)(void)) sc_get_esteid2018_driver },
+	//{ "idprime",	(void *(*)(void)) sc_get_idprime_driver },
 #if defined(ENABLE_SM) && defined(ENABLE_OPENPACE)
-	{ "edo",        (void *(*)(void)) sc_get_edo_driver },
+	//{ "edo",        (void *(*)(void)) sc_get_edo_driver },
 #endif
 
 /* Here should be placed drivers that need some APDU transactions in the
  * driver's `match_card()` function. */
-	{ "coolkey",	(void *(*)(void)) sc_get_coolkey_driver },
+	//{ "coolkey",	(void *(*)(void)) sc_get_coolkey_driver },
 	/* MUSCLE card applet returns 9000 on whatever AID is selected, see
 	 * https://github.com/JavaCardOS/MuscleCard-Applet/blob/master/musclecard/src/com/musclecard/CardEdge/CardEdge.java#L326
 	 * put the muscle driver first to cope with this bug. */
-	{ "muscle",	(void *(*)(void)) sc_get_muscle_driver },
-	{ "sc-hsm",	(void *(*)(void)) sc_get_sc_hsm_driver },
-	{ "mcrd",	(void *(*)(void)) sc_get_mcrd_driver },
-	{ "setcos",	(void *(*)(void)) sc_get_setcos_driver },
-	{ "PIV-II",	(void *(*)(void)) sc_get_piv_driver },
-	{ "cac",	(void *(*)(void)) sc_get_cac_driver },
-	{ "itacns",	(void *(*)(void)) sc_get_itacns_driver },
-	{ "isoApplet",	(void *(*)(void)) sc_get_isoApplet_driver },
+	//{ "muscle",	(void *(*)(void)) sc_get_muscle_driver },
+	//{ "sc-hsm",	(void *(*)(void)) sc_get_sc_hsm_driver },
+	//{ "mcrd",	(void *(*)(void)) sc_get_mcrd_driver },
+	//{ "setcos",	(void *(*)(void)) sc_get_setcos_driver },
+	//{ "PIV-II",	(void *(*)(void)) sc_get_piv_driver },
+	//{ "cac",	(void *(*)(void)) sc_get_cac_driver },
+	//{ "itacns",	(void *(*)(void)) sc_get_itacns_driver },
+	//{ "isoApplet",	(void *(*)(void)) sc_get_isoApplet_driver },
 #ifdef ENABLE_ZLIB
-	{ "gids",	(void *(*)(void)) sc_get_gids_driver },
+	//{ "gids",	(void *(*)(void)) sc_get_gids_driver },
 #endif
-	{ "openpgp",	(void *(*)(void)) sc_get_openpgp_driver },
-	{ "jpki",	(void *(*)(void)) sc_get_jpki_driver },
-	{ "npa",	(void *(*)(void)) sc_get_npa_driver },
-	{ "cac1",	(void *(*)(void)) sc_get_cac1_driver },
-	{ "nqapplet",	(void *(*)(void)) sc_get_nqApplet_driver },
+	//{ "openpgp",	(void *(*)(void)) sc_get_openpgp_driver },
+	//{ "jpki",	(void *(*)(void)) sc_get_jpki_driver },
+	//{ "npa",	(void *(*)(void)) sc_get_npa_driver },
+	//{ "cac1",	(void *(*)(void)) sc_get_cac1_driver },
+	//{ "nqapplet",	(void *(*)(void)) sc_get_nqApplet_driver },
 #if defined(ENABLE_SM) && defined(ENABLE_OPENPACE)
-	{ "eOI",	(void *(*)(void)) sc_get_eoi_driver },
+	//{ "eOI",	(void *(*)(void)) sc_get_eoi_driver },
 #endif
 	/* The default driver should be last, as it handles all the
 	 * unrecognized cards. */
@@ -696,7 +696,7 @@ static void process_config_file(sc_context_t *ctx, struct _sc_ctx_options *opts)
 	/* Takes effect even when no config around */
 	debug = getenv("OPENSC_DEBUG");
 
-	debug = "9";
+	debug = "0";
 
 	if (debug)
 		ctx->debug = atoi(debug);

@@ -58,14 +58,15 @@ static const struct sc_atr_table entersafe_atrs[] = {
         SC_CARD_TYPE_AMBIMAT_JCOS4_PKCS_T0_T1,
         0,
         NULL },
+		/*
     {
         "3b:9f:95:81:31:fe:9f:00:65:46:53:05:30:06:71:df:00:00:00:80:6a:82:5e",
         "FF:FF:FF:FF:FF:FF:FF:FF:FF:FF:FF:FF:00:FF:FF:FF:FF:FF:FF:00:00:00:00",
         "FTCOS/PK-01C", SC_CARD_TYPE_ENTERSAFE_FTCOS_PK_01C, 0, NULL },
-     /*{
+    {
         "3b:fc:18:00:00:81:31:80:45:90:67:46:4a:00:64:18:14:00:00:00:00:02",
         "ff:00:00:00:00:00:00:00:00:ff:ff:ff:ff:00:00:00:00:ff:ff:ff:ff:00",
-        "EJAVA/PK-01C", SC_CARD_TYPE_ENTERSAFE_EJAVA_PK_01C, 0, NULL },*/
+        "EJAVA/PK-01C", SC_CARD_TYPE_ENTERSAFE_EJAVA_PK_01C, 0, NULL },
     {
         "3b:7c:18:00:00:90:67:46:4a:20:28:8c:58:00:00:00:00",
         "ff:00:00:00:00:ff:ff:ff:ff:00:00:00:00:ff:ff:ff:ff",
@@ -94,6 +95,7 @@ static const struct sc_atr_table entersafe_atrs[] = {
         "3b:fc:18:00:00:81:31:80:45:90:67:46:4a:00:68:08:06:00:00:00:00:0c",
         "FF:FF:FF:FF:FF:FF:FF:FF:FF:FF:FF:FF:00:FF:FF:FF:FF:FF:FF:00:00:00",
         "FTCOS/PK-01C", SC_CARD_TYPE_ENTERSAFE_FTCOS_PK_01C, 0, NULL },
+        */
     { NULL, NULL, NULL, 0, 0, NULL }
 };
 
