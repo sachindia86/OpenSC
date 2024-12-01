@@ -200,7 +200,7 @@ AC_ARG_ENABLE(
 	[openssl],
 	[AS_HELP_STRING([--enable-openssl],[enable OpenSSL linkage @<:@detect@:>@])],
 	,
-	[enable_openssl="yes"]
+	[enable_openssl="detect"]
 )
 
 AC_ARG_ENABLE([openssl-secure-malloc],
@@ -214,7 +214,7 @@ AC_ARG_ENABLE(
 	[openpace],
 	[AS_HELP_STRING([--enable-openpace],[enable OpenPACE linkage @<:@detect@:>@])],
 	,
-	[enable_openpace="yes"]
+	[enable_openpace="detect"]
 )
 
 AC_ARG_ENABLE(
