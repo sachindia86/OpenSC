@@ -186,7 +186,7 @@ AC_ARG_ENABLE(
 	[zlib],
 	[AS_HELP_STRING([--enable-zlib],[enable zlib linkage @<:@detect@:>@])],
 	,
-	[enable_zlib="yes"]
+	[enable_zlib="detect"]
 )
 
 AC_ARG_ENABLE(
