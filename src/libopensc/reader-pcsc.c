@@ -325,7 +325,7 @@ static int pcsc_transmit(sc_reader_t *reader, sc_apdu_t *apdu)
 		sc_log(reader->ctx, "reader '%s'", reader->name);
 	sc_apdu_log(reader->ctx, sbuf, ssize, 1);
 
-	sc_debug_hex(reader->ctx, SC_LOG_DEBUG_NORMAL, "NEEL APDU - SBUF", sbuf, ssize);
+	//sc_debug_hex(reader->ctx, SC_LOG_DEBUG_NORMAL, "NEEL APDU - SBUF", sbuf, ssize);
 
 
 	r = pcsc_internal_transmit(reader, sbuf, ssize,

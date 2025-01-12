@@ -58,6 +58,12 @@ static const struct sc_atr_table entersafe_atrs[] = {
         SC_CARD_TYPE_AMBIMAT_JCOS4_PKCS_T0_T1,
         0,
         NULL },
+	{   "3B:D5:18:FF:81:B1:FE:45:1F:C3:80:73:C8:21:10:6F",
+		NULL,
+		"AmbiSecure/SecureDS",
+		SC_CARD_TYPE_AMBIMAT_JCOS4_PKCS_T0_T1,
+		0,
+		NULL },
 		/*
     {
         "3b:9f:95:81:31:fe:9f:00:65:46:53:05:30:06:71:df:00:00:00:80:6a:82:5e",

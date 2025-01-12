@@ -120,7 +120,7 @@ static const struct _sc_driver_entry internal_card_drivers[] = {
 #ifdef ENABLE_OPENSSL
 	{ "entersafe",(void *(*)(void)) sc_get_entersafe_driver },
 #ifdef ENABLE_SM
-	{ "epass2003",(void *(*)(void)) sc_get_epass2003_driver },
+	//{ "epass2003",(void *(*)(void)) sc_get_epass2003_driver },
 #endif
 #endif
 	//{ "rutoken",	(void *(*)(void)) sc_get_rutoken_driver },
@@ -696,7 +696,7 @@ static void process_config_file(sc_context_t *ctx, struct _sc_ctx_options *opts)
 	/* Takes effect even when no config around */
 	debug = getenv("OPENSC_DEBUG");
 
-	debug = "0";
+	//debug = "0";
 
 	if (debug)
 		ctx->debug = atoi(debug);
