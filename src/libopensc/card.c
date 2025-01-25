@@ -1299,14 +1299,14 @@ static int match_atr_table(sc_context_t *ctx, const struct sc_atr_table *table, 
 		size_t fix_hex_len = card_atr_hex_len;
 		size_t fix_bin_len = card_atr_bin_len;
 
-		sc_debug(ctx, SC_LOG_DEBUG_MATCH, "ATR try : %s", tatr);
+		//sc_debug(ctx, SC_LOG_DEBUG_MATCH, "ATR try : %s", tatr);
 
 		if (tatr_len != fix_hex_len) {
-			sc_debug(ctx, SC_LOG_DEBUG_MATCH, "ignored - wrong length");
+			//sc_debug(ctx, SC_LOG_DEBUG_MATCH, "ignored - wrong length");
 			continue;
 		}
 		if (matr != NULL) {
-			sc_debug(ctx, SC_LOG_DEBUG_MATCH, "ATR mask: %s", matr);
+			//sc_debug(ctx, SC_LOG_DEBUG_MATCH, "ATR mask: %s", matr);
 
 			matr_len = strlen(matr);
 			if (tatr_len != matr_len)
@@ -1316,7 +1316,7 @@ static int match_atr_table(sc_context_t *ctx, const struct sc_atr_table *table, 
 			mbin_len = sizeof(mbin);
 			sc_hex_to_bin(matr, mbin, &mbin_len);
 			if (mbin_len != fix_bin_len) {
-				sc_debug(ctx, SC_LOG_DEBUG_MATCH, "length of atr and atr mask do not match - ignored: %s - %s", tatr, matr);
+				//sc_debug(ctx, SC_LOG_DEBUG_MATCH, "length of atr and atr mask do not match - ignored: %s - %s", tatr, matr);
 				continue;
 			}
 			for (s = 0; s < tbin_len; s++) {
